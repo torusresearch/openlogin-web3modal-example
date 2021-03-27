@@ -1,0 +1,11 @@
+
+.info-container {
+    background: #fff;
+    border: 1px solid #f5f5f5;
+    box-shadow: 0 14px 28px rgb(46 91 255 / 6%);
+    border-radius: 6px;
+    max-width: 800px;
+    text-align: center!important;
+    width: 100%;
+}
+

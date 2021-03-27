@@ -1,41 +1,87 @@
-.App {
+
+.content-center {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  width: 100%;
+  height: 100vh;
+
+}
+
+.btn-solid {
+  background: linear-gradient(92.85deg,#0364ff,#1ac7fe 101.17%);
+  text-transform: inherit;
+  font-size: 0.8rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  border-radius: 10px;
   color: white;
+  min-width: 64px;
+  height: 40px;
+  padding-right: 48px!important;
+  padding-left: 48px!important;
+  padding-top:  5px!important;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.btn-light {
+  background-color: #fff;
+  border-color: #0364ff;
+  text-transform: inherit;
+  font-size: 0.8rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  border-radius: 10px;
+  color:#0364ff;
+  min-width: 64px;
+  height: 40px;
+  padding-right: 48px!important;
+  padding-left: 48px!important;
+  padding-top:  5px!important;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  margin: 14px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+input {
+  margin-bottom: 30px;
+  width: auto;
+  height: 30px;
+  border: 3px solid lightgrey;
+  box-shadow: 0 14px 28px rgb(46 91 255 / 6%);
+  border-radius: 6px;
+  max-width: 400px;
+  text-align: center!important;
+}
+
+hr {
+  border: 0;
+  clear:both;
+  display:block;
+  width: 40%;               
+  background-color: rgba(0,0,0,.12);
+  height: 1px;
 }

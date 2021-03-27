@@ -1,45 +1,48 @@
 {
-  "extends": [
-    "airbnb",
-    "standard",
-    "eslint:recommended",
-    "plugin:promise/recommended",
-    "plugin:react/recommended",
-    "react-app",
-    "prettier",
-    "plugin:prettier/recommended"
-  ],
-  "plugins": ["promise", "@babel", "import", "react", "react-hooks", "simple-import-sort", "prettier"],
-  "parser": "@babel/eslint-parser",
-  "parserOptions": {
-    "sourceType": "module",
-    "babelOptions": {
-      "configFile": "./babel.config.js"
+    "extends": [
+      "airbnb",
+      "standard",
+      "eslint:recommended",
+      "plugin:promise/recommended",
+      "plugin:react/recommended",
+      "react-app",
+      "prettier",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": ["promise", "import", "react", "react-hooks", "simple-import-sort", "prettier"],
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+      "sourceType": "module",
+      "babelOptions": {
+        "configFile": "./babel.config.js"
+      },
+      "ecmaVersion": 11,
+      "ecmaFeatures": {
+        "jsx": true
+      }
     },
-    "ecmaVersion": 11,
-    "ecmaFeatures": {
-      "jsx": true
+    "env": {
+      "es6": true,
+      "browser": true
+    },
+    "rules": {
+      "no-underscore-dangle": "off",
+      "promise/always-return": "off",
+      "react/forbid-prop-types": "off",
+      "react/jsx-uses-react": "off",
+      "react/react-in-jsx-scope": "off",
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
+      "sort-imports": "off",
+      "import/order": "off",
+      "react/state-in-constructor": [2, "never"],
+      "no-param-reassign": [2, { "props": false }],
+      "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": true }],
+      "no-restricted-syntax": 0,
+      "quotes": [2, "double"],
+      "max-len": [2, { "code": 150, "ignoreComments": true }],
+      "prettier/prettier": ["error", { "printWidth": 150, "jsxSingleQuote": false, "endOfLine": "auto" }]
     }
-  },
-  "env": {
-    "es6": true,
-    "browser": true
-  },
-  "rules": {
-    "promise/always-return": "off",
-    "react/forbid-prop-types": "off",
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off",
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
-    "sort-imports": "off",
-    "import/order": "off",
-    "react/state-in-constructor": [2, "never"],
-    "no-param-reassign": [2, { "props": false }],
-    "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": true }],
-    "no-restricted-syntax": 0,
-    "quotes": [2, "double"],
-    "max-len": [2, { "code": 150, "ignoreComments": true }],
-    "prettier/prettier": ["error", { "printWidth": 150, "jsxSingleQuote": false, "endOfLine": "auto" }]
+    
   }
-}
+  

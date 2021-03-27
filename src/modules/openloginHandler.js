@@ -5,23 +5,24 @@ const INFURA_NODE_URL = "https://mainnet.infura.io/v3/73d0b3b9a4b2499da81c71a2b2
 
 class OpenLoginHandler {
   constructor() {
-    this.sdkInstance = new OpenLogin({ clientId: "random_id", iframeUrl: "http://beta.openlogin.com" });
+    this.sdkInstance = new OpenLogin({ clientId: "random_id", iframeUrl: "http://localhost:3000" });
   }
 
   async _onConnection() {
-    this.web3 = new window.Web3(new Web3.providers.HttpProvider(INFURA_NODE_URL));
+    this.web3 = new Web3(new Web3.providers.HttpProvider(INFURA_NODE_URL));
   }
 
   async connectWeb3() {
     await this.sdkInstance.init();
-    if (!this.sdkInstance.privKey) {
+    if (this.sdkInstance.privKey) {
       await this._onConnection();
     }
   }
 
-  async login() {
+  async login(email) {
     await this.sdkInstance.login({
-      loginProvider: "google",
+      loginProvider: "torus_passwordless",
+      _loginHint: email,
       redirectUrl: `${window.origin}/dashboard`,
     });
   }
