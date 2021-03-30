@@ -33,7 +33,10 @@ function Home() {
   const logout = async () => {
     setLoadingStatus(true);
     await currentLoginHandler.logout();
-    history.push("/");
+    setTimeout(() => {
+      setLoadingStatus(false);
+      history.push("/");
+    }, 500);
   };
   return isLoading ? (
     <Loader isDone={isLoading} />
