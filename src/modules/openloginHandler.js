@@ -5,7 +5,7 @@ const INFURA_NODE_URL = "https://mainnet.infura.io/v3/73d0b3b9a4b2499da81c71a2b2
 
 class OpenLoginHandler {
   constructor() {
-    this.sdkInstance = new OpenLogin({ clientId: "random_id", iframeUrl: "http://localhost:3000" });
+    this.sdkInstance = new OpenLogin({ clientId: "random_id", iframeUrl: "https://beta.openlogin.com" });
   }
 
   async _onConnection() {
@@ -13,7 +13,15 @@ class OpenLoginHandler {
   }
 
   async connectWeb3() {
-    await this.sdkInstance.init();
+    try {
+      await this.sdkInstance.init();
+    } catch (error) {
+      const isIgnoreable = typeof error === "object" && error.message === "already initialized";
+      console.log("error", error);
+      if (!isIgnoreable) {
+        throw error;
+      }
+    }
     if (this.sdkInstance.privKey) {
       await this._onConnection();
     }
@@ -21,8 +29,10 @@ class OpenLoginHandler {
 
   async login(email) {
     await this.sdkInstance.login({
-      loginProvider: "torus_passwordless",
-      _loginHint: email,
+      extraLoginOptions: {
+        login_hint: email,
+      },
+      loginProvider: "email_passwordless",
       redirectUrl: `${window.origin}/dashboard`,
     });
   }

@@ -6,7 +6,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@toruslabs/openlogin": "file:./toruslabs-openlogin-v0.3.0.tgz",
+    "@toruslabs/openlogin": "^0.3.3",
     "@toruslabs/torus-embed": "^1.9.14",
     "lottie-web": "^5.7.7",
     "prop-types": "^15.7.2",
