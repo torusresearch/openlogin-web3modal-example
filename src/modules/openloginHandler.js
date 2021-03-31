@@ -14,7 +14,9 @@ class OpenLoginHandler {
 
   async connectWeb3() {
     try {
-      await this.sdkInstance.init();
+      if (!this.sdkInstance.provider.initialized) {
+        await this.sdkInstance.init();
+      }
     } catch (error) {
       console.log("error", error);
       const isIgnoreable = typeof error === "object" && error.message === "already initialized";
@@ -28,14 +30,13 @@ class OpenLoginHandler {
   }
 
   async login(email) {
-    const loginData = {
+    await this.sdkInstance.login({
       extraLoginOptions: {
         login_hint: email,
       },
       loginProvider: "email_passwordless",
       redirectUrl: `${window.origin}/dashboard`,
-    };
-    await this.sdkInstance.login(loginData);
+    });
   }
 
   async getUserInfo() {
