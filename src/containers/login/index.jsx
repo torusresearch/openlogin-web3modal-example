@@ -12,11 +12,16 @@ function Login() {
   const [isLoading, setLoadingStatus] = useState(null);
   const history = useHistory();
   useEffect(() => {
+    const existingLoginMethod = localStorage.getItem("LOGIN_METHOD");
+    if (existingLoginMethod) {
+      history.push("/dashboard");
+      return;
+    }
     const Web3LoginHandler = CreateLoginHandler("WEB3_MODAL");
     const OpenloginHandler = CreateLoginHandler("OPENLOGIN");
     setWeb3LoginHandler(Web3LoginHandler);
     setOpenloginHandler(OpenloginHandler);
-  }, []);
+  }, [history]);
 
   const handleOpenlogin = async (e) => {
     try {
@@ -25,11 +30,12 @@ function Login() {
       await openloginHandler.connectWeb3();
       // if web3 is initialized it means user has been loggedin
       if (openloginHandler.web3) {
+        localStorage.setItem("LOGIN_METHOD", "OPENLOGIN");
         history.push("/dashboard");
       } else {
+        localStorage.setItem("LOGIN_METHOD", "OPENLOGIN");
         await openloginHandler.login(e.target[0].value);
       }
-      sessionStorage.setItem("LOGIN_METHOD", "OPENLOGIN");
       // setTimeout(() => {
       //   setLoadingStatus(false);
       // }, 500);
@@ -47,12 +53,13 @@ function Login() {
       await web3LoginHandler.connectWeb3();
       // if web3 is initialized it means user has been loggedin
       if (web3LoginHandler.web3) {
+        localStorage.setItem("LOGIN_METHOD", "WEB3_MODAL");
         history.push("/dashboard");
       } else {
+        localStorage.setItem("LOGIN_METHOD", "WEB3_MODAL");
         await web3LoginHandler.login();
         history.push("/dashboard");
       }
-      sessionStorage.setItem("LOGIN_METHOD", "WEB3_MODAL");
       setLoadingStatus(false);
     } catch (error) {
       // eslint-disable-next-line no-console

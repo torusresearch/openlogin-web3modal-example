@@ -16,8 +16,8 @@ class OpenLoginHandler {
     try {
       await this.sdkInstance.init();
     } catch (error) {
-      const isIgnoreable = typeof error === "object" && error.message === "already initialized";
       console.log("error", error);
+      const isIgnoreable = typeof error === "object" && error.message === "already initialized";
       if (!isIgnoreable) {
         throw error;
       }
@@ -45,9 +45,8 @@ class OpenLoginHandler {
     return { publicAddress, balance };
   }
 
-  async logout() {
-    await this.sdkInstance.logout();
-    // todo: redirect to login page
+  async logout(fastLogin = false) {
+    await this.sdkInstance.logout({ fastLogin });
   }
 }
 

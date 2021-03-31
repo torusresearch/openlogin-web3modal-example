@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 
 import Loader from "../../components/Loader/loader";
+import OpenloginLogout from "../../components/Logout/Openlogin";
+import Web3Logout from "../../components/Logout/Web3";
 import CreateLoginHandler from "../../modules/handlerFactory";
 
 function Home() {
   const [currentLoginHandler, setLoginHandler] = useState(null);
+  const [loginMethod, setLoginMethod] = useState(null);
   const [isLoading, setLoadingStatus] = useState(null);
   const [userInfo, setUserInfo] = useState({});
   const history = useHistory();
@@ -15,14 +18,20 @@ function Home() {
   useEffect(() => {
     async function initializedUser() {
       setLoadingStatus(true);
-      const loginMethod = sessionStorage.getItem("LOGIN_METHOD");
-      const loginHandler = CreateLoginHandler(loginMethod);
+      const currentLoginMethod = localStorage.getItem("LOGIN_METHOD");
+      if (!currentLoginMethod) {
+        history.push("/");
+        return;
+      }
+      setLoginMethod(currentLoginMethod);
+      const loginHandler = CreateLoginHandler(currentLoginMethod);
       await loginHandler.connectWeb3();
       setLoginHandler(loginHandler);
       if (loginHandler.web3) {
         const info = await loginHandler.getUserInfo();
         setUserInfo(info);
       } else {
+        localStorage.removeItem("LOGIN_METHOD");
         history.push("/");
       }
       setLoadingStatus(false);
@@ -30,14 +39,26 @@ function Home() {
     initializedUser();
   }, [history]);
 
-  const logout = async () => {
+  const web3Disconnect = async () => {
     setLoadingStatus(true);
     await currentLoginHandler.logout();
     setTimeout(() => {
       setLoadingStatus(false);
+      localStorage.removeItem("LOGIN_METHOD");
       history.push("/");
     }, 500);
   };
+
+  const openloginDisconnect = async (fastLogin) => {
+    setLoadingStatus(true);
+    await currentLoginHandler.logout(fastLogin);
+    setTimeout(() => {
+      setLoadingStatus(false);
+      localStorage.removeItem("LOGIN_METHOD");
+      history.push("/");
+    }, 500);
+  };
+
   return isLoading ? (
     <Loader isDone={isLoading} />
   ) : (
@@ -56,10 +77,10 @@ function Home() {
             </div>
           );
         })}
-
-        <button onClick={logout} type="button" className="btn-solid">
-          Logout
-        </button>
+        {loginMethod === "OPENLOGIN" && (
+          <OpenloginLogout hardLogout={() => openloginDisconnect(false)} softLogout={() => openloginDisconnect(true)} />
+        )}
+        {loginMethod === "WEB3_MODAL" && <Web3Logout logout={web3Disconnect} />}
       </div>
     </div>
   );
