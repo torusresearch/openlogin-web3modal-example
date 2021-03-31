@@ -30,9 +30,9 @@ function Login() {
         await openloginHandler.login(e.target[0].value);
       }
       sessionStorage.setItem("LOGIN_METHOD", "OPENLOGIN");
-      setTimeout(() => {
-        setLoadingStatus(false);
-      }, 500);
+      // setTimeout(() => {
+      //   setLoadingStatus(false);
+      // }, 500);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("error while login", error);

@@ -28,13 +28,14 @@ class OpenLoginHandler {
   }
 
   async login(email) {
-    await this.sdkInstance.login({
+    const loginData = {
       extraLoginOptions: {
         login_hint: email,
       },
       loginProvider: "email_passwordless",
       redirectUrl: `${window.origin}/dashboard`,
-    });
+    };
+    await this.sdkInstance.login(loginData);
   }
 
   async getUserInfo() {
